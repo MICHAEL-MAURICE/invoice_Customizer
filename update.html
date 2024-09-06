@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Responsive Invoice</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.css" />
     <style>
@@ -15,19 +15,38 @@
         }
         body {
             background-color: #f9f9f9;
-            padding: 50px;
+            padding: 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
         .controls, .invoice-container {
-            width: 48%;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            .controls, .invoice-container {
+                width: 48%;
+            }
         }
         .controls {
             background-color: #ffffff;
             padding: 20px;
             border: 1px solid #ddd;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: fit-content;
         }
         .controls h3, .controls h4 {
             margin-bottom: 10px;
@@ -47,12 +66,13 @@
             border: none;
             cursor: pointer;
             margin-top: 20px;
+            width: 100%;
         }
         .invoice-container {
             background-color: white;
             border: 2px solid #eee;
-            padding: 40px 30px;
-            min-height: 1000px;
+            padding: 20px;
+            min-height: 600px;
             transition: background-color 0.3s ease;
             background: linear-gradient(90deg, #ffffff, #f9f9f9);
         }
@@ -60,6 +80,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
         .header .title {
             font-size: 28px;
@@ -70,14 +91,15 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
         .logo {
             display: flex;
             align-items: center;
         }
         .logo img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
         .invoice-date {
             text-align: right;
@@ -85,16 +107,24 @@
         }
         .order-number {
             font-size: 18px;
+            width: 100%;
         }
         .invoice-details {
             margin-top: 30px;
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
         .invoice-details .column {
-            width: 48%;
+            width: 100%;
             padding-left: 20px;
             border-left: 3px solid #7f4bc8;
+            margin-bottom: 10px;
+        }
+        @media (min-width: 768px) {
+            .invoice-details .column {
+                width: 48%;
+            }
         }
         .invoice-details .row {
             padding: 10px 0;
@@ -150,227 +180,210 @@
     </style>
 </head>
 <body>
-    <div class="controls">
-        <h3>Customize Invoice</h3>
+    <div class="container">
+        <div class="controls">
+            <h3>Customize Invoice</h3>
 
-        <!-- Field Visibility Toggles -->
-        <h4>Field Visibility</h4>
-        <hr>
-        <div>
-            <input type="checkbox" id="toggleOrderNumber" checked>
-            <label for="toggleOrderNumber">Show Order Number</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleCompany" checked>
-            <label for="toggleCompany">Show Company</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleClientName" checked>
-            <label for="toggleClientName">Show Client Name</label>
-        </div>
-        <div>
-            <input type="checkbox" id="togglePaymentMethod" checked>
-            <label for="togglePaymentMethod">Show Payment Method</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleStatus" checked>
-            <label for="toggleStatus">Show Status</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleBranch" checked>
-            <label for="toggleBranch">Show Branch</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleEmail" checked>
-            <label for="toggleEmail">Show Email</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleMobile" checked>
-            <label for="toggleMobile">Show Mobile Number</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleStudentID" checked>
-            <label for="toggleStudentID">Show Student ID</label>
-        </div>
-        <div>
-            <input type="checkbox" id="toggleStudentName" checked>
-            <label for="toggleStudentName">Show Student Name</label>
-        </div>
-
-        <!-- Background Gradient Color Customization -->
-        <h4>Invoice Background Gradient</h4>
-        <hr>
-        <div>
-            <label for="gradientColorPicker">Select Gradient</label>
-            <input type="color" id="gradientStartColorPicker" value="#ffffff">
-            <input type="color" id="gradientEndColorPicker" value="#f9f9f9">
-        </div>
-        <div>
-            <label for="gradientAngle">Gradient Angle</label>
-            <input type="range" id="gradientAngle" min="0" max="360" value="90">
-        </div>
-
-        <h4>Line Color Customization</h4>
-        <hr>
-        <div>
-            <label for="lineColorPicker">Change Line Color</label>
-            <input type="color" id="lineColorPicker" value="#7f4bc8">
-        </div>
-
-        <h4>Font Color Customization</h4>
-        <hr>
-        <div>
-            <label for="fontColorPicker">Change Font Color</label>
-            <input type="color" id="fontColorPicker" value="#444444">
-        </div>
-
-        <h4>Header Color Customization</h4>
-        <hr>
-        <div>
-            <label for="headerColorPicker">Change Header Color</label>
-            <input type="color" id="headerColorPicker" value="#ffffff">
-        </div>
-
-        <h4>Highlighted Text Color Customization</h4>
-        <hr>
-        <div>
-            <label for="highlightedTextColorPicker">Change Highlighted Text Color</label>
-            <input type="color" id="highlightedTextColorPicker" value="#444444">
-        </div>
-
-        <h4>Font Size Customization</h4>
-        <hr>
-        <div>
-            <label for="fontSize">Enable Font Size Change</label>
-            <input type="number" id="fontSize" value="16">
-        </div>
-
-        <h4>Font Family Customization</h4>
-        <hr>
-        <div>
-            <label for="fontFamily">Enable Font Family Change</label>
-            <select id="fontFamily">
-                <option value="Roboto">Roboto</option>
-                <option value="Arial">Arial</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Trebuchet MS">Trebuchet MS</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <option value="Impact">Impact</option>
-                <option value="Lucida Sans">Lucida Sans</option>
-                <option value="Tahoma">Tahoma</option>
-                <option value="Palatino Linotype">Palatino Linotype</option>
-                <option value="Gill Sans">Gill Sans</option>
-                <option value="Montserrat">Montserrat</option>
-                <option value="Open Sans">Open Sans</option>
-                <option value="Lora">Lora</option>
-                <option value="Ubuntu">Ubuntu</option>
-                <option value="Poppins">Poppins</option>
-                <option value="Raleway">Raleway</option>
-            </select>
-        </div>
-
-        <!-- Advanced Settings -->
-        <h4>Logo Customization</h4>
-        <hr>
-        <div>
-            <label for="logoUpload">Enable Logo Upload</label>
-            <input type="file" id="logoUpload" accept="image/*">
-        </div>
-
-        <button class="btn-generate-json" onclick="generateJSON()">Generate JSON</button>
-    </div>
-
-    <div class="invoice-container">
-        <div class="header">
+            <h4>Field Visibility</h4>
+            <hr>
             <div>
-                <h2 class="title highlighted-text">Invoice</h2>
+                <input type="checkbox" id="toggleOrderNumber" checked>
+                <label for="toggleOrderNumber">Show Order Number</label>
             </div>
-            <div id="orderNumber" class="order-number highlighted-text">
-                <span>Order No.: <strong>485431</strong></span>
+            <div>
+                <input type="checkbox" id="toggleCompany" checked>
+                <label for="toggleCompany">Show Company</label>
             </div>
+            <div>
+                <input type="checkbox" id="toggleClientName" checked>
+                <label for="toggleClientName">Show Client Name</label>
+            </div>
+            <div>
+                <input type="checkbox" id="togglePaymentMethod" checked>
+                <label for="togglePaymentMethod">Show Payment Method</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleStatus" checked>
+                <label for="toggleStatus">Show Status</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleBranch" checked>
+                <label for="toggleBranch">Show Branch</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleEmail" checked>
+                <label for="toggleEmail">Show Email</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleMobile" checked>
+                <label for="toggleMobile">Show Mobile Number</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleStudentID" checked>
+                <label for="toggleStudentID">Show Student ID</label>
+            </div>
+            <div>
+                <input type="checkbox" id="toggleStudentName" checked>
+                <label for="toggleStudentName">Show Student Name</label>
+            </div>
+
+            <h4>Invoice Background Gradient</h4>
+            <hr>
+            <div>
+                <label for="gradientStartColorPicker">Start Color</label>
+                <input type="color" id="gradientStartColorPicker" value="#ffffff">
+                <label for="gradientEndColorPicker">End Color</label>
+                <input type="color" id="gradientEndColorPicker" value="#f9f9f9">
+            </div>
+            <div>
+                <label for="gradientAngle">Gradient Angle</label>
+                <input type="range" id="gradientAngle" min="0" max="360" value="90">
+            </div>
+
+            <h4>Line Color Customization</h4>
+            <hr>
+            <div>
+                <label for="lineColorPicker">Change Line Color</label>
+                <input type="color" id="lineColorPicker" value="#7f4bc8">
+            </div>
+
+            <h4>Font Color Customization</h4>
+            <hr>
+            <div>
+                <label for="fontColorPicker">Change Font Color</label>
+                <input type="color" id="fontColorPicker" value="#444444">
+            </div>
+
+            <h4>Header Color Customization</h4>
+            <hr>
+            <div>
+                <label for="headerColorPicker">Change Header Color</label>
+                <input type="color" id="headerColorPicker" value="#ffffff">
+            </div>
+
+            <h4>Highlighted Text Color Customization</h4>
+            <hr>
+            <div>
+                <label for="highlightedTextColorPicker">Change Highlighted Text Color</label>
+                <input type="color" id="highlightedTextColorPicker" value="#444444">
+            </div>
+
+            <h4>Font Size Customization</h4>
+            <hr>
+            <div>
+                <label for="fontSize">Enable Font Size Change</label>
+                <input type="number" id="fontSize" value="16">
+            </div>
+
+            <h4>Font Family Customization</h4>
+            <hr>
+            <div>
+                <label for="fontFamily">Enable Font Family Change</label>
+                <select id="fontFamily">
+                    <option value="Roboto">Roboto</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+            </div>
+
+            <h4>Logo Customization</h4>
+            <hr>
+            <div>
+                <label for="logoUpload">Enable Logo Upload</label>
+                <input type="file" id="logoUpload" accept="image/*">
+            </div>
+
+            <button class="btn-generate-json" onclick="generateJSON()">Generate JSON</button>
         </div>
- 
-        <div class="divider"></div>
- 
-        <div class="logo-date-container">
-            <div class="logo">
-                <img id="logo" src="https://via.placeholder.com/100x100?text=Logo" alt="CIC Logo">
-            </div>
-            <div class="invoice-date">
-                <span>Date: <strong>05 Sep, 2024</strong></span>
-            </div>
-        </div>
- 
-        <div class="invoice-details">
-            <div class="column">
-                <div id="company" class="row">
-                    <span><strong>Company:</strong> CIC New Cairo</span>
+
+        <div class="invoice-container">
+            <div class="header">
+                <div>
+                    <h2 class="title highlighted-text">Invoice</h2>
                 </div>
-                <div id="clientName" class="row">
-                    <span><strong>Client Name:</strong> Ahmed Hamdy</span>
-                </div>
-                <div id="paymentMethod" class="row">
-                    <span><strong>Payment Method:</strong> Online</span>
-                </div>
-                <div id="status" class="row">
-                    <span><strong>Status:</strong> <span class="fixed-status">SUCCESS</span></span>
+                <div id="orderNumber" class="order-number highlighted-text">
+                    <span>Order No.: <strong>485431</strong></span>
                 </div>
             </div>
-            <div class="column">
-                <div id="branch" class="row">
-                    <span><strong>Branch:</strong> Engineering</span>
+
+            <div class="divider"></div>
+
+            <div class="logo-date-container">
+                <div class="logo">
+                    <img id="logo" src="https://via.placeholder.com/100x100?text=Logo" alt="CIC Logo">
                 </div>
-                <div id="email" class="row">
-                    <span><strong>Email:</strong> ahmed_m10307@cic-cairo.com</span>
-                </div>
-                <div id="mobile" class="row">
-                    <span><strong>Mobile Number:</strong> 1002627324</span>
+                <div class="invoice-date">
+                    <span>Date: <strong>05 Sep, 2024</strong></span>
                 </div>
             </div>
-        </div>
- 
-        <div class="divider"></div>
- 
-        <div class="invoice-details">
-            <div id="studentID" class="row">
-                <span><strong>Student ID:</strong> 202100307</span>
+
+            <div class="invoice-details">
+                <div class="column">
+                    <div id="company" class="row">
+                        <span><strong>Company:</strong> CIC New Cairo</span>
+                    </div>
+                    <div id="clientName" class="row">
+                        <span><strong>Client Name:</strong> Ahmed Hamdy</span>
+                    </div>
+                    <div id="paymentMethod" class="row">
+                        <span><strong>Payment Method:</strong> Online</span>
+                    </div>
+                    <div id="status" class="row">
+                        <span><strong>Status:</strong> <span class="fixed-status">SUCCESS</span></span>
+                    </div>
+                </div>
+                <div class="column">
+                    <div id="branch" class="row">
+                        <span><strong>Branch:</strong> Engineering</span>
+                    </div>
+                    <div id="email" class="row">
+                        <span><strong>Email:</strong> ahmed_m10307@cic-cairo.com</span>
+                    </div>
+                    <div id="mobile" class="row">
+                        <span><strong>Mobile Number:</strong> 1002627324</span>
+                    </div>
+                </div>
             </div>
-            <div id="studentName" class="row">
-                <span><strong>Student Name:</strong> أحمد محمد مصطفى أحمد حمدي</span>
+
+            <div class="divider"></div>
+
+            <div class="invoice-details">
+                <div id="studentID" class="row">
+                    <span><strong>Student ID:</strong> 202100307</span>
+                </div>
+                <div id="studentName" class="row">
+                    <span><strong>Student Name:</strong> أحمد محمد مصطفى أحمد حمدي</span>
+                </div>
             </div>
-        </div>
- 
-        <div class="order-details">
-            <h2>Order Details</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="fixed-header">Payment Name</th>
-                        <th class="fixed-header">Student Name</th>
-                        <th class="fixed-header">Student Grade</th>
-                        <th class="fixed-header">Sub Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tuition Fees</td>
-                        <td>أحمد محمد مصطفى أحمد حمدي</td>
-                        <td>eng</td>
-                        <td>EGP 22,536.00</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="total">
-                <span class="total-amount highlighted-text">Total Amount: EGP 22,536.00</span>
+
+            <div class="order-details">
+                <h2>Order Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="fixed-header">Payment Name</th>
+                            <th class="fixed-header">Student Name</th>
+                            <th class="fixed-header">Student Grade</th>
+                            <th class="fixed-header">Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tuition Fees</td>
+                            <td>أحمد محمد مصطفى أحمد حمدي</td>
+                            <td>eng</td>
+                            <td>EGP 22,536.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="total">
+                    <span class="total-amount highlighted-text">Total Amount: EGP 22,536.00</span>
+                </div>
             </div>
-        </div>
- 
-        <div class="footer highlighted-text">
-            klickit
+
+            <div class="footer highlighted-text">
+                klickit
+            </div>
         </div>
     </div>
 
